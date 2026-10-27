@@ -1,0 +1,247 @@
+/* ==========================================================
+   Sign-in page — restrained dark palette, system fonts
+   (no external requests, so it works the moment it's opened)
+   ========================================================== */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg:            #0e131c;
+    --card:          #161d2b;
+    --input-bg:      #0f1520;
+    --text:          #eef1f6;
+    --text-muted:    #a3adbd;   /* neutral hint colour (≈7:1 on the card) */
+    --border:        rgba(255, 255, 255, 0.10);
+
+    --primary:       #2f66dd;
+    --primary-hover: #3d75ee;
+    --ring:          rgba(79, 140, 255, 0.40);
+
+    --valid:         #5fd38d;
+    --invalid:       #f47c7c;
+
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: var(--font);
+    color: var(--text);
+    line-height: 1.5;
+    background:
+        radial-gradient(900px 500px at 12% -10%, rgba(47, 102, 221, 0.20), transparent 60%),
+        radial-gradient(700px 450px at 100% 110%, rgba(95, 211, 141, 0.07), transparent 60%),
+        var(--bg);
+}
+
+.page {
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+}
+
+/* ---------- Card ---------- */
+.card {
+    width: 100%;
+    max-width: 420px;
+    padding: 2.25rem 2rem 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.brand-mark {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    color: #9db9f5;
+    background: rgba(47, 102, 221, 0.16);
+    border: 1px solid rgba(79, 140, 255, 0.28);
+    border-radius: 12px;
+}
+.brand-mark svg { width: 22px; height: 22px; }
+
+h1 {
+    font-size: 1.55rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+}
+
+.subtitle {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ---------- Fields ---------- */
+.field + .field { margin-top: 1.25rem; }
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 550;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem 0.95rem;
+    font: inherit;
+    font-size: 1rem;               /* 16px avoids iOS zoom-on-focus */
+    color: var(--text);
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+input::placeholder { color: #6b7587; }
+
+input:hover { border-color: rgba(255, 255, 255, 0.18); }
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Validation state is driven by data-state on .field (neutral | valid | invalid) */
+.field[data-state="valid"]   input { border-color: rgba(95, 211, 141, 0.65); }
+.field[data-state="invalid"] input { border-color: rgba(244, 124, 124, 0.65); }
+
+/* ---------- Instruction / validation message ---------- */
+.hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+}
+
+/* Small symbol so state isn't communicated by colour alone */
+.hint::before {
+    content: "\25CB";              /* ○ */
+    flex: none;
+    width: 1em;
+    text-align: center;
+}
+
+.field[data-state="valid"]   .hint { color: var(--valid); }
+.field[data-state="valid"]   .hint::before { content: "\2713"; }   /* ✓ */
+.field[data-state="invalid"] .hint { color: var(--invalid); }
+.field[data-state="invalid"] .hint::before { content: "\2715"; }   /* ✕ */
+
+/* ---------- Password visibility toggle ---------- */
+.input-wrap { position: relative; }
+.input-wrap input { padding-right: 3rem; }
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.4rem;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.toggle-password:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+.toggle-password svg { width: 20px; height: 20px; }
+.toggle-password .icon-eye-off { display: none; }
+.toggle-password.is-showing .icon-eye { display: none; }
+.toggle-password.is-showing .icon-eye-off { display: block; }
+
+/* ---------- Primary button ---------- */
+.btn-primary {
+    width: 100%;
+    margin-top: 1.75rem;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(47, 102, 221, 0.35);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover { background: var(--primary-hover); box-shadow: 0 8px 22px rgba(47, 102, 221, 0.45); }
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-primary:focus-visible,
+.toggle-password:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* ---------- Submit feedback ---------- */
+.form-status {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+.form-status:empty { display: none; }
+.form-status.is-success {
+    color: var(--valid);
+    background: rgba(95, 211, 141, 0.10);
+    border-color: rgba(95, 211, 141, 0.35);
+}
+.form-status.is-error {
+    color: var(--invalid);
+    background: rgba(244, 124, 124, 0.10);
+    border-color: rgba(244, 124, 124, 0.35);
+}
+
+/* ---------- Utilities ---------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+    .page { padding: 1rem 0.75rem; align-items: flex-start; }
+    .card { padding: 1.75rem 1.25rem 1.5rem; border-radius: 16px; margin-top: 1rem; }
+    h1 { font-size: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+}

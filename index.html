@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <meta name="description" content="Sign in to your account.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="card" aria-labelledby="signin-title">
+            <header class="card-header">
+                <div class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect>
+                        <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path>
+                    </svg>
+                </div>
+                <h1 id="signin-title">Welcome back</h1>
+                <p class="subtitle">Sign in to continue to your account.</p>
+            </header>
+
+            <form id="signin-form" novalidate>
+                <!-- Email -->
+                <div class="field" data-state="neutral">
+                    <label for="email">Email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        aria-describedby="email-hint"
+                        aria-invalid="false"
+                        required
+                    >
+                    <p class="hint" id="email-hint">
+                        <span>Email address must contain at least 12 characters.</span>
+                        <span class="sr-only" data-status></span>
+                    </p>
+                </div>
+
+                <!-- Username -->
+                <div class="field" data-state="neutral">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="e.g. jane_doe"
+                        autocomplete="username"
+                        spellcheck="false"
+                        autocapitalize="none"
+                        aria-describedby="username-hint"
+                        aria-invalid="false"
+                        required
+                    >
+                    <p class="hint" id="username-hint">
+                        <span>Username must contain at least 4 characters and use only letters, numbers, and underscores.</span>
+                        <span class="sr-only" data-status></span>
+                    </p>
+                </div>
+
+                <!-- Password -->
+                <div class="field" data-state="neutral">
+                    <label for="password">Password</label>
+                    <div class="input-wrap">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            aria-describedby="password-hint"
+                            aria-invalid="false"
+                            required
+                        >
+                        <button type="button" class="toggle-password" id="toggle-password" aria-label="Show password" aria-pressed="false" aria-controls="password">
+                            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M10.6 5.1A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A16.8 16.8 0 0 0 2 12s3.6 7 10 7a10.5 10.5 0 0 0 5.4-1.5"></path>
+                                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path>
+                                <path d="M3 3l18 18"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="hint" id="password-hint">
+                        <span>Password must contain at least 8 characters, including at least one letter and one number.</span>
+                        <span class="sr-only" data-status></span>
+                    </p>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign in</button>
+
+                <!-- Success / error summary after submit -->
+                <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
